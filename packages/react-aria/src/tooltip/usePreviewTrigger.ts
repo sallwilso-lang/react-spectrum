@@ -74,6 +74,9 @@ export function usePreviewTrigger(
   let {triggerRef, popoverRef, isDisabled} = props;
   let stringFormatter = useLocalizedStringFormatter(intlMessages, '@react-aria/link-preview');
   let popoverId = useId();
+  // Label the preview dialog by the trigger when the Popover has no aria-label /
+  // aria-labelledby of its own (same fallback DialogTrigger uses).
+  let triggerId = useId();
 
   // Suppresses the next focus from reopening the preview (e.g. when restoring focus on Escape).
   let ignoreFocus = useRef(false);
@@ -244,6 +247,7 @@ export function usePreviewTrigger(
   return {
     triggerProps: {
       ...triggerProps,
+      id: triggerId,
       'aria-haspopup': 'dialog',
       'aria-expanded': state.isOpen,
       'aria-controls': state.isOpen ? popoverId : undefined,
@@ -256,6 +260,7 @@ export function usePreviewTrigger(
     },
     popoverProps: {
       id: popoverId,
+      'aria-labelledby': triggerId,
       onFocusWithin: keepOpen,
       onBlurWithin: checkClose
     }

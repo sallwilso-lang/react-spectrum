@@ -46,7 +46,7 @@ function PreviewLink({
       <Link href={href} target="_blank">
         {children}
       </Link>
-      <Popover offset={4} style={{maxWidth: 260}}>
+      <Popover offset={4} style={{maxWidth: 260}} aria-label={`${title} preview`}>
         <div style={{display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'start'}}>
           <strong>{title}</strong>
           <span style={{fontSize: 13}}>{description}</span>
